@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Chamba - Tu Plataforma Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles - Replicando la identidad gráfica de la landing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background-color: #f8faff; /* Fondo suave */
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(68, 49, 218, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0; /* Padding se manejará en las filas internas */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(68, 49, 218, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column; /* Por defecto, apilado */
+        }
+
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 20px; /* Padding para la fila superior */
+            width: 100%;
+        }
+
+        .header-bottom-row {
+            display: none; /* Oculto por defecto, solo para desktop */
+            width: 100%;
+            padding: 0.5rem 20px 1rem; /* Padding para la fila inferior */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .logo img {
+            height: 40px;
+            vertical-align: middle;
+            margin-right: 10px;
+            border-radius: 8px; /* Pequeño redondeo para el logo */
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem; /* Espacio entre enlaces más pequeño */
+            align-items: center;
+            justify-content: center; /* Centrar los enlaces en la fila inferior */
+            width: 100%;
+            margin: 0; /* Asegurar que no haya margen extra */
+            padding: 0; /* Asegurar que no haya padding extra */
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0; /* Padding para hacer el hover más cómodo */
+            font-size: 0.95rem; /* Tamaño de fuente más pequeño */
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header-right-elements {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem; /* Espacio entre elementos de la derecha */
+        }
+
+        .profile-section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer; /* Para el dropdown de perfil */
+            position: relative;
+        }
+
+        .profile-section-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(68, 49, 218, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(68, 49, 218, 0.3);
+            min-width: 180px;
+            padding: 0.5rem 0;
+            z-index: 1001;
+            margin-top: 10px;
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s ease;
+        }
+
+        .profile-dropdown a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(68, 49, 218, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 8px 32px rgba(68, 49, 218, 0.3);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 2rem; /* Increased top/bottom padding for mobile menu items */
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding-left: 2.5rem;
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 100px 0; /* Ajustado para el header fijo */
+            display: none; /* Todas las secciones ocultas por defecto */
+            opacity: 0; /* Para la animación de entrada */
+            transform: translateY(20px); /* Para la animación de entrada */
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.active {
+            display: block; /* Solo la sección activa es visible */
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3.5rem;
+            font-weight: 800;
+            color: #4431da;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #6c5ce7;
+            border-radius: 2px;
+        }
+
+        /* Botones */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: #4431da;
+            color: white;
+            box-shadow: 0 8px 25px rgba(68, 49, 218, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(68, 49, 218, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4431da;
+            border: 2px solid #4431da;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: #4431da;
+            color: white;
+            box-shadow: 0 15px 35px rgba(68, 49, 218, 0.4);
+        }
+
+        /* Main Content Layout (Perfil + Centro de Comando) */
+        .main-layout-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Perfil más ancho, Centro de Comando más estrecho */
+            gap: 3rem;
+            align-items: start; /* Alinea los elementos al inicio */
+        }
+
+        .profile-main-content {
+            /* Estilos para la columna principal del perfil */
+        }
+
+        .command-center {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.1);
+            border: 1px solid #e1e8ed;
+            position: sticky; /* Para que se mantenga visible al hacer scroll */
+            top: 120px; /* Ajusta según la altura del header */
+        }
+
+        .command-center h3 {
+            font-size: 1.8rem;
+            color: #4431da;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .command-center .dashboard-card-small {
+            background: #f8faff;
+            padding: 1.2rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            text-align: center;
+            border: 1px solid #e1e8ed;
+        }
+
+        .command-center .dashboard-card-small strong {
+            font-size: 1.2rem;
+            color: #1a1a2e;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .command-center .dashboard-card-small p {
+            font-size: 0.9rem;
+            color: #5a5a5a;
+        }
+
+        .command-center .btn {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Notificaciones (Modal) */
+        .notification-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 1rem;
+            position: relative;
+        }
+        .notification-button .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 7px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .notifications-modal-content {
+            max-width: 500px;
+        }
+
+        .notifications-modal-content h2 {
+            text-align: center;
+        }
+
+        .notifications-modal-content ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .notifications-modal-content li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            color: #5a5a5a;
+            font-size: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .notifications-modal-content li:last-child {
+            border-bottom: none;
+        }
+
+        .notifications-modal-content li .icon {
+            color: #6c5ce7;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Miniproyectos Disponibles */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .filters input, .filters select {
+            padding: 12px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8faff;
+            width: 100%;
+            max-width: 250px;
+        }
+
+        .filters input:focus, .filters select:focus {
+            outline: none;
+            border-color: #4431da;
+            background: white;
+            box-shadow: 0 5px 15px rgba(68, 49, 218, 0.1);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #e1e8ed;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(68, 49, 218, 0.15);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            color: #4431da;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            color: #5a5a5a;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card .details {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .project-card .details strong {
+            color: #1a1a2e;
+        }
+
+        .project-card .cupos {
+            margin-top: 1rem;
+            font-weight: 600;
+            color: #ff4757; /* Color para destacar los cupos */
+            font-size: 0.95rem;
+        }
+
+        .project-card .next-step {
+            margin-top: 0.5rem;
+            font-style: italic;
+            color: #6c5ce7;
+            font-size: 0.9rem;
+        }
+
+        .project-card .btn {
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        /* Mis Proyectos */
+        .my-projects-list {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.08);
+            padding: 2.5rem;
+            border: 1px solid #e1e8ed;
+        }
+
+        .my-projects-list h3 {
+            font-size: 1.8rem;
+            color: #4431da;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .project-category {
+            margin-bottom: 2.5rem;
+        }
+
+        .project-category h4 {
+            font-size: 1.4rem;
+            color: #6c5ce7;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #e1e8ed;
+            padding-bottom: 8px;
+        }
+
+        .project-item {
+            background: #f8faff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .project-item strong {
+            color: #1a1a2e;
+            font-size: 1.1rem;
+        }
+
+        .project-item p {
+            font-size: 0.95rem;
+            color: #5a5a5a;
+        }
+
+        .project-item .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .project-item .actions .btn {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+
+        /* Mentorías */
+        .mentoring-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .mentoring-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.1);
+            text-align: center;
+            border: 1px solid #e1e8ed;
+        }
+
+        .mentoring-card h3 {
+            font-size: 1.8rem;
+            color: #4431da;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .mentoring-card p {
+            font-size: 1rem;
+            color: #5a5a5a;
+            margin-bottom: 1.5rem;
+        }
+
+        .mentoring-card .btn {
+            width: 100%;
+        }
+
+        .mentoring-list {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.08);
+            padding: 2.5rem;
+            margin-top: 4rem;
+            border: 1px solid #e1e8ed;
+        }
+
+        .mentoring-list h4 {
+            font-size: 1.4rem;
+            color: #6c5ce7;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #e1e8ed;
+            padding-bottom: 8px;
+        }
+
+        .mentoring-item {
+            background: #f8faff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .mentoring-item strong {
+            color: #1a1a2e;
+            font-size: 1.1rem;
+        }
+
+        .mentoring-item p {
+            font-size: 0.95rem;
+            color: #5a5a5a;
+        }
+
+        .mentoring-item .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .mentoring-item .actions .btn {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+
+        /* Charlas y Eventos */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .event-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #e1e8ed;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(68, 49, 218, 0.15);
+        }
+
+        .event-card h3 {
+            font-size: 1.4rem;
+            color: #4431da;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .event-card p {
+            font-size: 0.95rem;
+            color: #5a5a5a;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-card .meta {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .event-card .btn {
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        .recorded-talks {
+            margin-top: 4rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.08);
+            padding: 2.5rem;
+            border: 1px solid #e1e8ed;
+        }
+
+        .recorded-talks h4 {
+            font-size: 1.4rem;
+            color: #6c5ce7;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #e1e8ed;
+            padding-bottom: 8px;
+        }
+
+        .recorded-talks ul {
+            list-style: none;
+        }
+
+        .recorded-talks li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recorded-talks li:last-child {
+            border-bottom: none;
+        }
+
+        .recorded-talks li span {
+            color: #5a5a5a;
+            font-size: 1rem;
+        }
+
+        .recorded-talks li .btn {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            width: auto;
+        }
+
+        /* Mi Perfil */
+        .profile-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 49, 218, 0.08);
+            padding: 2.5rem;
+            border: 1px solid #e1e8ed;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4431da;
+            box-shadow: 0 8px 25px rgba(68, 49, 218, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .profile-header h2 {
+            font-size: 2rem;
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-header p {
+            color: #5a5a5a;
+            font-size: 1.1rem;
+        }
+
+        .profile-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .profile-section h4 {
+            font-size: 1.4rem;
+            color: #6c5ce7;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #e1e8ed;
+            padding-bottom: 8px;
+        }
+
+        .profile-info-item {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            color: #5a5a5a;
+        }
+
+        .profile-info-item strong {
+            color: #1a1a2e;
+            display: inline-block;
+            width: 150px; /* Para alinear etiquetas */
+        }
+
+        .skills-list, .certifications-list, .portfolio-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-list li, .certifications-list li {
+            background: #f8faff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 0.95rem;
+            color: #4431da;
+            border: 1px solid #e1e8ed;
+        }
+
+        .portfolio-item {
+            background: #f8faff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e1e8ed;
+        }
+
+        .portfolio-item h5 {
+            font-size: 1.2rem;
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-item p {
+            font-size: 0.95rem;
+            color: #5a5a5a;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-item .meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .profile-actions {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        .profile-actions .btn {
+            margin: 0 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f0f23;
+            color: white;
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(5px);
+            overflow-y: auto; /* Para contenido largo */
+        }
+
+        .modal-content {
+            background: white;
+            margin: 3% auto;
+            padding: 3rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px; /* Más ancho para detalles de proyecto */
+            position: relative;
+            box-shadow: 0 30px 80px rgba(68, 49, 218, 0.3);
+            animation: modalSlideIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: #4431da;
+            transform: scale(1.1);
+        }
+
+        .modal-content h2 {
+            color: #4431da;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8faff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4431da;
+            background: white;
+            box-shadow: 0 5px 15px rgba(68, 49, 218, 0.1);
+        }
+
+        .modal-project-details p {
+            margin-bottom: 1rem;
+            color: #5a5a5a;
+            line-height: 1.7;
+        }
+        .modal-project-details strong {
+            color: #1a1a2e;
+        }
+        .modal-project-details ul {
+            list-style: none;
+            margin-bottom: 1rem;
+            padding-left: 0;
+        }
+        .modal-project-details ul li {
+            margin-bottom: 0.5rem;
+            color: #5a5a5a;
+            position: relative;
+            padding-left: 20px;
+        }
+        .modal-project-details ul li::before {
+            content: '•';
+            color: #4431da;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .modal-project-details .mentor-info {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .modal-project-details .postulation-info {
+            background: #e6f7ff; /* Un azul muy claro */
+            border-left: 4px solid #4431da;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .modal-project-details .postulation-info strong {
+            color: #4431da;
+        }
+
+
+        /* Responsive Design */
+        @media (min-width: 993px) {
+            header {
+                padding: 0; /* Eliminar padding del header principal */
+            }
+            .header-top-row {
+                padding: 1rem 20px; /* Padding para la fila superior */
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separador visual */
+            }
+            .header-bottom-row {
+                display: block; /* Mostrar la fila inferior en desktop */
+                padding: 0.5rem 20px 1rem; /* Padding para la fila inferior */
+            }
+            .nav-links {
+                display: flex; /* Asegurar flex para los enlaces */
+                justify-content: center; /* Centrar los enlaces */
+                gap: 1.5rem; /* Espacio entre enlaces */
+            }
+            .mobile-menu-btn, .mobile-menu {
+                display: none !important; /* Asegurar que el menú móvil esté oculto */
+            }
+            .profile-section-header {
+                display: flex; /* Mostrar el perfil en la barra superior */
+            }
+            .command-center {
+                top: 150px; /* Ajustar el sticky top para el header de dos filas */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-top-row {
+                padding: 1.2rem 20px; /* Increased top/bottom padding for mobile header */
+            }
+            .nav-links {
+                display: none; /* Ocultar nav-links en tablet y móvil */
+            }
+            .profile-section-header {
+                display: none; /* Ocultar perfil en nav para móvil/tablet */
+            }
+            .mobile-menu-btn {
+                display: block; /* Mostrar botón de menú móvil */
+            }
+            .notification-button {
+                margin-left: auto; /* Empuja el botón de notificación a la derecha */
+                margin-right: 1rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .main-layout-grid {
+                grid-template-columns: 1fr; /* Una sola columna en tablet y móvil */
+                gap: 2rem;
+            }
+            .command-center {
+                position: static; /* Desactiva sticky en móvil */
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+            .header-top-row {
+                padding: 1.2rem 20px; /* Increased top/bottom padding for mobile header */
+            }
+            section {
+                padding: 80px 0;
+            }
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2.5rem;
+            }
+            .dashboard-grid, .project-grid, .mentoring-grid, .events-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .dashboard-quick-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .dashboard-quick-actions .btn {
+                width: 100%;
+            }
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            .filters input, .filters select {
+                max-width: 100%;
+            }
+            .modal-content {
+                margin: 5% auto;
+                padding: 2rem;
+            }
+            .modal-content h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+            .profile-info-item strong {
+                width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            .header-top-row {
+                padding: 1rem 20px; /* Increased top/bottom padding for mobile header */
+            }
+            .logo img {
+                height: 35px;
+            }
+            .dashboard-card h3, .notifications-list h3, .my-projects-list h3, .mentoring-card h3, .mentoring-list h4, .recorded-talks h4 {
+                font-size: 1.5rem;
+            }
+            .project-card h3, .event-card h3 {
+                font-size: 1.3rem;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="container header-top-row">
+                <div class="logo">
+                    <img src="logo.png" alt="Tu Primera Chamba Logo">
+                    Tu Primera Chamba
+                </div>
+                <div class="header-right-elements">
+                    <button class="notification-button" onclick="openModal('notificationsModal')">
+                        🔔 <span class="badge" id="notificationBadge">5</span>
+                    </button>
+                    <div class="profile-section-header" onclick="toggleProfileDropdown()">
+                        <img src="testimonial-carlos.png" alt="Marco Castellano">
+                        <span>Marco Castellano</span>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <a href="#perfil" onclick="showSection('perfil'); closeProfileDropdown();">Ver Perfil</a>
+                            <a href="#" onclick="showCustomMessage('Has cerrado sesión. ¡Vuelve pronto para más oportunidades!'); closeProfileDropdown(); return false;">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                </div>
+            </div>
+            <div class="container header-bottom-row">
+                <ul class="nav-links">
+                    <li><a href="#perfil" onclick="showSection('perfil')">Mi Perfil</a></li>
+                    <li><a href="#mis-proyectos" onclick="showSection('mis-proyectos')">Mis Proyectos</a></li>
+                    <li><a href="#miniproyectos" onclick="showSection('miniproyectos')">Miniproyectos Disponibles</a></li>
+                    <li><a href="#mentorias" onclick="showSection('mentorias')">Mentorías</a></li>
+                    <li><a href="#charlas" onclick="showSection('charlas')">Charlas y Eventos</a></li>
+                </ul>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#perfil" onclick="showSection('perfil'); closeMobileMenu();">Mi Perfil</a>
+                <a href="#mis-proyectos" onclick="showSection('mis-proyectos'); closeMobileMenu();">Mis Proyectos</a>
+                <a href="#miniproyectos" onclick="showSection('miniproyectos'); closeMobileMenu();">Miniproyectos Disponibles</a>
+                <a href="#mentorias" onclick="showSection('mentorias'); closeMobileMenu();">Mentorías</a>
+                <a href="#charlas" onclick="showSection('charlas'); closeMobileMenu();">Charlas y Eventos</a>
+                <a href="#" onclick="showCustomMessage('Has cerrado sesión. ¡Vuelve pronto para más oportunidades!'); closeMobileMenu(); return false;">Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Mi Perfil / Portafolio (Página Principal) -->
+        <section id="perfil" class="container active">
+            <h1 class="section-title">Mi Perfil y Portafolio</h1>
+            <div class="main-layout-grid">
+                <div class="profile-main-content">
+                    <div class="profile-content">
+                        <div class="profile-header">
+                            <img src="testimonial-carlos.png" alt="Marco Castellano">
+                            <h2>Marco Castellano</h2>
+                            <p>Joven Profesional en Desarrollo</p>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Información Personal</h4>
+                            <p class="profile-info-item"><strong>Correo Electrónico:</strong> marco.castellano@example.com</p>
+                            <p class="profile-info-item"><strong>Teléfono:</strong> +51 987 654 321</p>
+                            <p class="profile-info-item"><strong>Áreas de Interés:</strong> Marketing Digital, Diseño Gráfico, Contenido</p>
+                            <p class="profile-info-item"><strong>Nivel de Experiencia:</strong> Inicial</p>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Habilidades</h4>
+                            <ul class="skills-list">
+                                <li>Marketing Digital (Básico)</li>
+                                <li>Diseño Gráfico (Básico)</li>
+                                <li>Redacción (Intermedio)</li>
+                                <li>MS Office (Intermedio)</li>
+                                <li>Canva (Básico)</li>
+                                <li>Investigación de Mercado (Básico)</li>
+                            </ul>
+                            <div class="profile-actions" style="text-align: left;">
+                                <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Abriendo editor de habilidades...'); return false;">Editar Habilidades</a>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Portafolio de Proyectos</h4>
+                            <div class="portfolio-list">
+                                <div class="portfolio-item">
+                                    <h5>Diseño de Logo para Startup</h5>
+                                    <p>Creación de 3 propuestas de logo para una startup de tecnología, utilizando Figma. El logo final fue seleccionado e implementado en su sitio web.</p>
+                                    <p class="meta">Rol: Diseñador Junior | Herramientas: Figma | Fecha: Julio 2025</p>
+                                </div>
+                                <div class="portfolio-item">
+                                    <h5>Investigación de Palabras Clave SEO</h5>
+                                    <p>Análisis exhaustivo de palabras clave para un blog de viajes, identificando oportunidades de contenido de alto impacto. Contribuyó a un incremento del 15% en tráfico orgánico.</p>
+                                    <p class="meta">Rol: Analista SEO Junior | Herramientas: Google Keyword Planner, Excel | Fecha: Junio 2025</p>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <a href="#" class="btn btn-primary" onclick="showCustomMessage('Abriendo formulario para añadir nuevo proyecto...'); return false;">Añadir Nuevo Proyecto</a>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4>Certificaciones</h4>
+                            <ul class="certifications-list">
+                                <li>Certificación: Marketing Digital Esencial (Tu Primera Chamba - Julio 2025) <a href="#" class="btn btn-secondary" style="margin-left: 10px; padding: 5px 10px; font-size: 0.8rem;" onclick="showCustomMessage('Descargando certificado...'); return false;">Descargar</a></li>
+                            </ul>
+                            <div class="profile-actions" style="text-align: left;">
+                                <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Abriendo formulario para añadir certificación externa...'); return false;">Añadir Certificación Externa</a>
+                            </div>
+                        </div>
+
+                        <div class="profile-actions">
+                            <a href="#" class="btn btn-primary" onclick="showCustomMessage('Guardando cambios en el perfil...'); return false;">Guardar Cambios</a>
+                            <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Abriendo configuración de cuenta...'); return false;">Configuración de Cuenta</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Centro de Comando (Dashboard Resumido) -->
+                <div class="command-center">
+                    <h3>Tu Centro de Comando</h3>
+                    <div class="dashboard-card-small">
+                        <strong>1 Proyecto Activo</strong>
+                        <p>Redacción de Contenido para Blog</p>
+                        <a href="#mis-proyectos" class="btn btn-primary" onclick="showSection('mis-proyectos')">Ver Proyecto</a>
+                    </div>
+                    <div class="dashboard-card-small">
+                        <strong>Próxima Mentoría</strong>
+                        <p>Viernes, 25 de Julio - 10:00 AM</p>
+                        <a href="#mentorias" class="btn btn-secondary" onclick="showSection('mentorias')">Ver Detalles</a>
+                    </div>
+                    <div class="dashboard-card-small">
+                        <strong>Ganancias Acumuladas</strong>
+                        <p>S/ 350.00</p>
+                        <a href="#perfil" class="btn btn-secondary" onclick="showSection('perfil')">Ver Historial</a>
+                    </div>
+                    <div class="dashboard-card-small">
+                        <strong>2 Proyectos Finalizados</strong>
+                        <p>¡Sigue construyendo tu portafolio!</p>
+                        <a href="#perfil" class="btn btn-primary" onclick="showSection('perfil')">Ver Portafolio</a>
+                    </div>
+                    <a href="#miniproyectos" class="btn btn-primary" style="margin-top: 2rem;" onclick="showSection('miniproyectos')">Explorar Nuevos Proyectos</a>
+                    <a href="#charlas" class="btn btn-secondary" style="margin-top: 1rem;" onclick="showSection('charlas')">Ver Charlas y Eventos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mis Proyectos -->
+        <section id="mis-proyectos" class="container">
+            <h2 class="section-title">Mis Proyectos</h2>
+            <div class="my-projects-list">
+                <div class="project-category">
+                    <h4>Proyectos Activos</h4>
+                    <div class="project-item">
+                        <strong>Redacción de Contenido para Blog de Tecnología</strong>
+                        <p>Estado: En Progreso (60% completado)</p>
+                        <p>Fecha Límite: 20/07/2025</p>
+                        <p>Pago Estimado: S/ 250</p>
+                        <div class="actions">
+                            <a href="#" class="btn btn-primary">Ir al Proyecto</a>
+                            <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Has contactado a tu mentor para el proyecto de Redacción de Contenido.'); return false;">Contactar Mentor</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-category">
+                    <h4>Proyectos Finalizados</h4>
+                    <div class="project-item">
+                        <strong>Diseño de Logo para Startup</strong>
+                        <p>Evaluación: Excelente</p>
+                        <p>Fecha Finalizado: 01/07/2025</p>
+                        <p>Pago Recibido: S/ 350</p>
+                        <div class="actions">
+                            <a href="#perfil" class="btn btn-primary" onclick="showSection('perfil')">Ver en Portafolio</a>
+                            <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Descargando certificado de Diseño de Logo para Startup...'); return false;">Descargar Certificado</a>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <strong>Investigación de Palabras Clave SEO</strong>
+                        <p>Evaluación: Muy Bien</p>
+                        <p>Fecha Finalizado: 15/06/2025</p>
+                        <p>Pago Recibido: S/ 300</p>
+                        <div class="actions">
+                            <a href="#perfil" class="btn btn-primary" onclick="showSection('perfil')">Ver en Portafolio</a>
+                            <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Descargando certificado de Investigación de Palabras Clave SEO...'); return false;">Descargar Certificado</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-category">
+                    <h4>Postulaciones Pendientes</h4>
+                    <div class="project-item">
+                        <strong>Creación de Contenido para Campaña de Moda</strong>
+                        <p>Estado: En Revisión</p>
+                        <div class="actions">
+                            <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Verificando el estado de tu postulación para Campaña de Moda...'); return false;">Ver Postulación</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Miniproyectos Disponibles -->
+        <section id="miniproyectos" class="container">
+            <h2 class="section-title">Miniproyectos Disponibles</h2>
+            <div class="filters">
+                <input type="text" placeholder="Buscar por palabra clave...">
+                <select>
+                    <option value="">Categoría</option>
+                    <option value="marketing">Marketing Digital</option>
+                    <option value="diseno">Diseño Gráfico</option>
+                    <option value="programacion">Programación</option>
+                    <option value="ventas">Ventas</option>
+                    <option value="contenido">Contenido</option>
+                    <option value="administracion">Administración</option>
+                </select>
+                <select>
+                    <option value="">Nivel</option>
+                    <option value="basico">Básico</option>
+                    <option value="intermedio">Intermedio</option>
+                    <option value="avanzado">Avanzado</option>
+                </select>
+            </div>
+
+            <div class="project-grid">
+                <!-- Miniproyecto 1 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Estrategia de Contenido para Red Social Innovadora</h3>
+                        <p><strong>Empresa:</strong> InnovaKids S.A.C.</p>
+                        <p><strong>Categoría:</strong> Marketing Digital / Contenido</p>
+                        <p><strong>Pago Estimado:</strong> S/ 180 - S/ 250</p>
+                        <p><strong>Duración Estimada:</strong> 6 - 8 horas</p>
+                        <p><strong>Nivel:</strong> Básico</p>
+                        <p class="cupos">Cupos de Postulación: <span id="cupos-mp1">25</span> de 50 disponibles (¡Date prisa!)</p>
+                        <p class="next-step">Siguiente paso: Las mejores 5 postulaciones pasarán a una entrevista corta.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openProjectModal('mp1')">Ver Detalles y Postular</button>
+                </div>
+
+                <!-- Miniproyecto 2 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Diseño de Banners Publicitarios para Campaña Digital</h3>
+                        <p><strong>Empresa:</strong> TiendaDeportiva.pe</p>
+                        <p><strong>Categoría:</strong> Diseño Gráfico</p>
+                        <p><strong>Pago Estimado:</strong> S/ 220 - S/ 300</p>
+                        <p><strong>Duración Estimada:</strong> 7 - 10 horas</p>
+                        <p><strong>Nivel:</strong> Intermedio</p>
+                        <p class="cupos">Cupos de Postulación: <span id="cupos-mp2">15</span> de 40 disponibles (¡Últimos cupos!)</p>
+                        <p class="next-step">Siguiente paso: Los 3 proyectos más destacados podrán ser considerados para prácticas pagadas.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openProjectModal('mp2')">Ver Detalles y Postular</button>
+                </div>
+
+                <!-- Miniproyecto 3 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Análisis de Datos Básicos para Reporte de Ventas</h3>
+                        <p><strong>Empresa:</strong> Soluciones B2B</p>
+                        <p><strong>Categoría:</strong> Administración / Análisis de Datos</p>
+                        <p><strong>Pago Estimado:</strong> S/ 150 - S/ 200</p>
+                        <p><strong>Duración Estimada:</strong> 5 - 7 horas</p>
+                        <p><strong>Nivel:</strong> Básico</p>
+                        <p class="cupos">Cupos de Postulación: <span id="cupos-mp3">30</span> de 60 disponibles</p>
+                        <p class="next-step">Siguiente paso: Los participantes con buen desempeño serán invitados a un workshop de Power BI.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openProjectModal('mp3')">Ver Detalles y Postular</button>
+                </div>
+
+                <!-- Miniproyecto 4 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Investigación de Mercado: Perfil del Consumidor Online</h3>
+                        <p><strong>Empresa:</strong> FoodieApp (App de delivery)</p>
+                        <p><strong>Categoría:</strong> Marketing / Investigación</p>
+                        <p><strong>Pago Estimado:</strong> S/ 200 - S/ 280</p>
+                        <p><strong>Duración Estimada:</strong> 8 - 12 horas</p>
+                        <p><strong>Nivel:</strong> Básico-Intermedio</p>
+                        <p class="cupos">Cupos de Postulación: <span id="cupos-mp4">10</span> de 30 disponibles (¡Quedan pocos!)</p>
+                        <p class="next-step">Siguiente paso: Los 2 mejores investigadores tendrán la oportunidad de presentar sus hallazgos a la gerencia de FoodieApp.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openProjectModal('mp4')">Ver Detalles y Postular</button>
+                </div>
+
+                <!-- Miniproyecto 5 -->
+                <div class="project-card">
+                    <div>
+                        <h3>Redacción de Contenido SEO para Blog de Viajes</h3>
+                        <p><strong>Empresa:</strong> ViajesPeruanos.com</p>
+                        <p><strong>Categoría:</strong> Contenido / SEO</p>
+                        <p><strong>Pago Estimado:</strong> S/ 190 - S/ 260</p>
+                        <p><strong>Duración Estimada:</strong> 6 - 9 horas</p>
+                        <p><strong>Nivel:</strong> Básico-Intermedio</p>
+                        <p class="cupos">Cupos de Postulación: <span id="cupos-mp5">20</span> de 50 disponibles</p>
+                        <p class="next-step">Siguiente paso: Los redactores con mejor contenido serán considerados para proyectos de redacción de largo plazo.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openProjectModal('mp5')">Ver Detalles y Postular</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentorías -->
+        <section id="mentorias" class="container">
+            <h2 class="section-title">Mentorías</h2>
+            <div class="mentoring-grid">
+                <div class="mentoring-card">
+                    <h3>Agendar Nueva Mentoría</h3>
+                    <p>¡Potencia tu carrera! Agenda una mentoría personalizada con expertos de la industria para resolver dudas o planificar tu futuro.</p>
+                    <a href="#" class="btn btn-primary" onclick="openModal('modalMentoria')">Agendar Mentoría</a>
+                </div>
+                <div class="mentoring-card">
+                    <h3>Próximas Mentorías</h3>
+                    <p>Consulta tus sesiones programadas y prepárate para aprender de los mejores.</p>
+                    <a href="#" class="btn btn-secondary" onclick="document.getElementById('mentoringList').scrollIntoView({ behavior: 'smooth' });">Ver Próximas</a>
+                </div>
+                <div class="mentoring-card">
+                    <h3>Mentorías Anteriores</h3>
+                    <p>Accede al historial de tus sesiones completadas y revisa las notas clave.</p>
+                    <a href="#" class="btn btn-secondary" onclick="document.getElementById('mentoringList').scrollIntoView({ behavior: 'smooth' });">Ver Historial</a>
+                </div>
+            </div>
+
+            <div class="mentoring-list" id="mentoringList">
+                <h4>Próximas Mentorías</h4>
+                <div class="mentoring-item">
+                    <strong>Viernes, 25 de Julio de 2025 - 10:00 AM (GMT-5)</strong>
+                    <p>Mentor: Ana Flores (Especialista en Talentos y Carrera Profesional)</p>
+                    <p>Tema: Revisión de Portafolio y Estrategia de Búsqueda</p>
+                    <div class="actions">
+                        <a href="#" class="btn btn-primary" onclick="showCustomMessage('Conectando a la llamada de Zoom...'); return false;">Unirse a la Llamada (Zoom)</a>
+                        <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Solicitud de cancelación/reprogramación enviada.'); return false;">Cancelar / Reprogramar</a>
+                    </div>
+                </div>
+
+                <h4>Mentorías Anteriores</h4>
+                <div class="mentoring-item">
+                    <strong>Miércoles, 10 de Julio de 2025 - 3:00 PM</strong>
+                    <p>Mentor: Juan Pérez (Desarrollador Web Senior)</p>
+                    <p>Tema: Introducción a React.js para Proyectos Front-end</p>
+                    <div class="actions">
+                        <a href="#" class="btn btn-primary" onclick="showCustomMessage('Mostrando notas de la mentoría...'); return false;">Ver Notas</a>
+                        <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Gracias por calificar a Juan Pérez.'); return false;">Calificar Mentor</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charlas y Eventos -->
+        <section id="charlas" class="container">
+            <h2 class="section-title">Charlas y Eventos</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: #5a5a5a; font-size: 1.1rem;">Conéctate con líderes de la industria y amplía tus conocimientos. ¡Inscríbete gratis!</p>
+
+            <h3>Próximos Eventos Destacados</h3>
+            <div class="events-grid">
+                <div class="event-card">
+                    <h3>Webinar: Creando tu Primer CV Impactor y Carta de Presentación</h3>
+                    <p class="meta">🗓️ Jueves, 17 de Julio de 2025 - 6:00 PM (GMT-5)</p>
+                    <p class="meta">🗣️ Ponente: Dra. Laura Giménez (Experta en Recursos Humanos)</p>
+                    <p>Aprende a destacar tu perfil sin experiencia previa, construyendo un CV que capture la atención de los reclutadores.</p>
+                    <a href="#" class="btn btn-primary" onclick="showCustomMessage('Te has inscrito al webinar. ¡Revisa tu correo para el enlace!'); return false;">Inscribirme Gratis</a>
+                </div>
+                <div class="event-card">
+                    <h3>Charla Online: Descubre el Mundo del Freelancing: Claves para Empezar</h3>
+                    <p class="meta">🗓️ Miércoles, 30 de Julio de 2025 - 7:00 PM (GMT-5)</p>
+                    <p class="meta">🗣️ Ponente: Ricardo Soto (Emprendedor Digital y Freelancer Exitoso)</p>
+                    <p>Consejos prácticos para iniciar tu carrera como freelancer, encontrar tus primeros clientes y gestionar tus proyectos.</p>
+                    <a href="#" class="btn btn-primary" onclick="showCustomMessage('Te has inscrito a la charla. ¡Revisa tu correo para el enlace!'); return false;">Inscribirme Gratis</a>
+                </div>
+            </div>
+
+            <div class="recorded-talks">
+                <h4>Charlas Grabadas (Biblioteca)</h4>
+                <ul>
+                    <li>
+                        <span>Introducción al Marketing Digital: De Cero a tus Primeros Pasos</span>
+                        <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Reproduciendo grabación de la charla...'); return false;">Ver Grabación</a>
+                    </li>
+                    <li>
+                        <span>Habilidades del Futuro: Lo que Buscan las Empresas Hoy</span>
+                        <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Reproduciendo grabación de la charla...'); return false;">Ver Grabación</a>
+                    </li>
+                    <li>
+                        <span>Dominando Figma: Diseña tu Primera Interfaz de Usuario</span>
+                        <a href="#" class="btn btn-secondary" onclick="showCustomMessage('Reproduciendo grabación de la charla...'); return false;">Ver Grabación</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tu Primera Chamba. Todos los derechos reservados. | Transformando futuros profesionales en Perú.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para Detalles de Miniproyecto -->
+    <div id="projectDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('projectDetailModal')">&times;</span>
+            <h2 id="modal-project-title"></h2>
+            <div class="modal-project-details">
+                <p><strong>Empresa:</strong> <span id="modal-project-company"></span></p>
+                <p><strong>Categoría:</strong> <span id="modal-project-category"></span></p>
+                <p><strong>Pago Estimado:</strong> <span id="modal-project-payment"></span></p>
+                <p><strong>Duración Estimada:</strong> <span id="modal-project-duration"></span></p>
+                <p><strong>Nivel:</strong> <span id="modal-project-level"></span></p>
+                <p><strong>Descripción:</strong> <span id="modal-project-description"></span></p>
+                <p><strong>Habilidades Requeridas:</strong> <ul id="modal-project-skills"></ul></p>
+                <p><strong>Entregables:</strong> <ul id="modal-project-deliverables"></ul></p>
+                <div class="mentor-info">
+                    <p><strong>Mentor Asignado:</strong> <span id="modal-project-mentor"></span></p>
+                </div>
+                <div class="postulation-info">
+                    <p><strong>Cupos de Postulación:</strong> <span id="modal-project-cupos"></span></p>
+                    <p><strong>Siguiente Paso:</strong> <span id="modal-project-next-step"></span></p>
+                    <p>Para postular, asegúrate de que tu perfil esté completo y haz clic en el botón de abajo. ¡Las mejores postulaciones avanzan!</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 2rem;" onclick="handleProjectPostulation()">Postular Ahora</button>
+        </div>
+    </div>
+
+    <!-- Modal para Agendar Mentoría -->
+    <div id="modalMentoria" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('modalMentoria')">&times;</span>
+            <h2>Agendar Nueva Mentoría</h2>
+            <form id="mentoriaForm">
+                <div class="form-group">
+                    <label for="tipoMentoria">Tipo de Mentoría:</label>
+                    <select id="tipoMentoria" name="tipoMentoria" required>
+                        <option value="">Selecciona un tipo</option>
+                        <option value="cv">Revisión de CV</option>
+                        <option value="orientacion">Orientación Laboral</option>
+                        <option value="habilidades">Desarrollo de Habilidades</option>
+                        <option value="tecnica">Duda Técnica</option>
+                        <option value="estrategia">Estrategia de Búsqueda de Empleo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="areaInteresMentoria">Área de Interés:</label>
+                    <select id="areaInteresMentoria" name="areaInteresMentoria" required>
+                        <option value="">Selecciona un área</option>
+                        <option value="marketing">Marketing Digital</option>
+                        <option value="diseno">Diseño Gráfico</option>
+                        <option value="programacion">Programación Web</option>
+                        <option value="finanzas">Finanzas</option>
+                        <option value="ventas">Ventas</option>
+                        <option value="emprendimiento">Emprendimiento</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fechaMentoria">Fecha Preferida:</label>
+                    <input type="date" id="fechaMentoria" name="fechaMentoria" required>
+                </div>
+                <div class="form-group">
+                    <label for="horaMentoria">Hora Preferida:</label>
+                    <input type="time" id="horaMentoria" name="horaMentoria" required>
+                </div>
+                <div class="form-group">
+                    <label for="objetivoMentoria">Describe brevemente tu objetivo:</label>
+                    <textarea id="objetivoMentoria" name="objetivoMentoria" rows="4" placeholder="Ej. Quiero mejorar mi CV para postular a roles de marketing."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Enviar Solicitud de Mentoría
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Message Modal (replaces alert) -->
+    <div id="customMessageModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <span class="close-button" onclick="closeModal('customMessageModal')">&times;</span>
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">¡Atención!</h2>
+            <p id="customMessageText" style="font-size: 1.1rem; color: #5a5a5a; margin-bottom: 2rem;"></p>
+            <button class="btn btn-primary" style="width: 100%;" onclick="closeModal('customMessageModal')">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div id="notificationsModal" class="modal">
+        <div class="modal-content notifications-modal-content">
+            <span class="close-button" onclick="closeModal('notificationsModal')">&times;</span>
+            <h2>Tus Notificaciones</h2>
+            <ul>
+                <li><span class="icon">🔔</span> ¡Nuevo miniproyecto de Marketing Digital disponible!</li>
+                <li><span class="icon">✅</span> Tu mentoría con Ana Flores ha sido confirmada para el 25/07.</li>
+                <li><span class="icon">💸</span> El pago por tu proyecto 'Diseño de Logo para Startup' ha sido procesado.</li>
+                <li><span class="icon">🗓️</span> Recordatorio: Webinar 'Creando tu Primer CV Impactor' - Mañana 6 PM.</li>
+                <li><span class="icon">⭐</span> ¡Tu mentor ha calificado tu proyecto 'Investigación de Palabras Clave SEO' como "Muy Bien"!</li>
+                <li><span class="icon">🚀</span> ¡Felicidades! Has completado tu primer miniproyecto.</li>
+                <li><span class="icon">💡</span> Nuevo recurso disponible: "Guía para Entrevistas de Trabajo".</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        // Data de miniproyectos para el modal
+        const miniproyectosData = {
+            'mp1': {
+                title: 'Estrategia de Contenido para Red Social Innovadora',
+                company: 'InnovaKids S.A.C.',
+                category: 'Marketing Digital / Contenido',
+                payment: 'S/ 180 - S/ 250',
+                duration: '6 - 8 horas',
+                level: 'Básico',
+                description: 'Investigar tendencias de contenido digital para niños, crear 5 ideas de posts (texto y concepto visual) para plataformas como Instagram y TikTok, orientados a una marca de productos educativos innovadores. Se espera creatividad y alineación con la voz de la marca. Este proyecto te ayudará a entender el ciclo de vida del contenido y la importancia de la audiencia.',
+                skills: ['Creatividad', 'Investigación de Tendencias', 'Redacción Básica', 'Uso de Redes Sociales'],
+                deliverables: ['Documento PDF con 5 ideas de posts (texto y boceto visual)', 'Breve justificación de cada idea'],
+                mentor: 'Sofía Mendoza (Especialista en Contenido Digital)',
+                cupos: 25,
+                totalCupos: 50,
+                nextStep: 'Las mejores 5 postulaciones pasarán a una entrevista corta con el equipo de marketing.'
+            },
+            'mp2': {
+                title: 'Diseño de Banners Publicitarios para Campaña Digital',
+                company: 'TiendaDeportiva.pe',
+                category: 'Diseño Gráfico',
+                payment: 'S/ 220 - S/ 300',
+                duration: '7 - 10 horas',
+                level: 'Intermedio',
+                description: 'Diseñar 3 banners publicitarios en diferentes tamaños (ej. 300x250, 728x90, 1200x628) para una campaña de lanzamiento de calzado deportivo. Se proveerá el branding de la marca (logos, colores) y activos fotográficos. El objetivo es crear diseños atractivos y que conviertan. Ideal para quienes buscan construir su portafolio de diseño publicitario.',
+                skills: ['Manejo de herramientas de diseño (Figma, Canva, Photoshop/Illustrator)', 'Creatividad', 'Conocimientos básicos de composición visual'],
+                deliverables: ['3 banners en formatos JPG y PNG para web', 'Archivos fuente (opcional, si se usa software profesional)'],
+                mentor: 'Ricardo Vargas (Diseñador Gráfico Senior)',
+                cupos: 15,
+                totalCupos: 40,
+                nextStep: 'Los 3 proyectos con el diseño más impactante podrán ser considerados para prácticas pagadas en el equipo de diseño.'
+            },
+            'mp3': {
+                title: 'Análisis de Datos Básicos para Reporte de Ventas',
+                company: 'Soluciones B2B',
+                category: 'Administración / Análisis de Datos',
+                payment: 'S/ 150 - S/ 200',
+                duration: '5 - 7 horas',
+                level: 'Básico',
+                description: 'Organizar y analizar un dataset de ventas proporcionado en Excel o Google Sheets. El objetivo es identificar las 3 principales tendencias de ventas (ej. productos más vendidos, meses de mayor venta, regiones clave) y crear un mini-reporte ejecutivo con gráficos simples. Este proyecto te dará una base sólida en el manejo de datos y la presentación de información clave.',
+                skills: ['Excel o Google Sheets (intermedio)', 'Atención al detalle', 'Pensamiento analítico básico', 'Creación de gráficos'],
+                deliverables: ['Archivo de Excel/Google Sheets con el análisis', 'Reporte en PDF con hallazgos clave y gráficos'],
+                mentor: 'Carla Quispe (Analista de Negocios)',
+                cupos: 30,
+                totalCupos: 60,
+                nextStep: 'Los participantes con un buen desempeño serán invitados a un workshop exclusivo de Power BI para profundizar en análisis de datos.'
+            },
+            'mp4': {
+                title: 'Investigación de Mercado: Perfil del Consumidor Online',
+                company: 'FoodieApp (App de delivery)',
+                category: 'Marketing / Investigación',
+                payment: 'S/ 200 - S/ 280',
+                duration: '8 - 12 horas',
+                level: 'Básico-Intermedio',
+                description: 'Realizar una pequeña investigación online para determinar las preferencias y hábitos de los usuarios de aplicaciones de delivery en Lima. Esto puede incluir la creación y distribución de una encuesta corta (Google Forms), análisis de reviews en tiendas de apps, o investigación de foros online. El objetivo es identificar insights clave sobre el consumidor. Ideal para desarrollar habilidades de investigación y síntesis de información.',
+                skills: ['Comunicación escrita', 'Capacidad de síntesis', 'Uso de herramientas de encuestas online (Google Forms)', 'Análisis cualitativo básico'],
+                deliverables: ['Presentación (PPT/Google Slides) con hallazgos clave', 'Base de datos de respuestas de la encuesta (si aplica)'],
+                mentor: 'Daniel Castro (Especialista en Investigación de Mercado)',
+                cupos: 10,
+                totalCupos: 30,
+                nextStep: 'Los 2 mejores investigadores tendrán la oportunidad de presentar sus hallazgos directamente a la gerencia de FoodieApp en una sesión exclusiva.'
+            },
+            'mp5': {
+                title: 'Redacción de Contenido SEO para Blog de Viajes',
+                company: 'ViajesPeruanos.com',
+                category: 'Contenido / SEO',
+                payment: 'S/ 190 - S/ 260',
+                duration: '6 - 9 horas',
+                level: 'Básico-Intermedio',
+                description: 'Revisar 2 artículos de blog existentes en ViajesPeruanos.com e identificar oportunidades de mejora SEO. Esto incluye la optimización de palabras clave (se proveerán algunas sugerencias), la mejora de meta descripciones, la estructura de títulos (H1, H2, etc.) y la fluidez del texto para el lector y los motores de búsqueda. Un proyecto excelente para quienes desean iniciar en el mundo del SEO y la redacción web.',
+                skills: ['Nociones básicas de SEO', 'Capacidad de análisis de texto', 'Redacción creativa y persuasiva', 'Atención al detalle'],
+                deliverables: ['Documento con análisis de los 2 artículos y recomendaciones de optimización', 'Versión revisada de los 2 artículos con los cambios propuestos resaltados'],
+                mentor: 'Laura Torres (Content Manager Senior)',
+                cupos: 20,
+                totalCupos: 50,
+                nextStep: 'Los redactores con el mejor contenido optimizado serán considerados para proyectos de redacción de largo plazo con ViajesPeruanos.com.'
+            }
+        };
+
+        // Contador de postulaciones (simulado)
+        const postulationCounts = {
+            'mp1': 25,
+            'mp2': 15,
+            'mp3': 30,
+            'mp4': 10,
+            'mp5': 20
+        };
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            closeProfileDropdown(); // Cierra el dropdown de perfil si está abierto
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.remove('active');
+        }
+
+        // Profile Dropdown Toggle
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+            closeMobileMenu(); // Cierra el menú móvil si está abierto
+        }
+
+        function closeProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.remove('active');
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Evita el scroll en el body
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaura el scroll en el body
+        }
+
+        // Función para mostrar mensajes personalizados (reemplaza alert)
+        function showCustomMessage(message) {
+            document.getElementById('customMessageText').textContent = message;
+            openModal('customMessageModal');
+        }
+
+        // Cierra el modal al hacer clic fuera de su contenido
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    closeModal(modal.id);
+                }
+            });
+            // Cierra dropdowns si se hace clic fuera
+            if (!event.target.closest('.profile-section-header')) {
+                closeProfileDropdown();
+            }
+            if (!event.target.closest('.mobile-menu-btn')) {
+                closeMobileMenu();
+            }
+        }
+
+        // Función para mostrar/ocultar secciones
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('main section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+            });
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                // Forzar reflow para que la transición se aplique correctamente
+                void targetSection.offsetWidth;
+                targetSection.style.opacity = '1';
+                targetSection.style.transform = 'translateY(0)';
+            }
+            // Asegúrate de cerrar los menús desplegables al navegar
+            closeMobileMenu();
+            closeProfileDropdown();
+        }
+
+        // Observar todas las secciones para la animación (solo la activa)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mostrar la sección de perfil por defecto al cargar
+            showSection('perfil');
+
+            // Agrega el listener para el formulario de mentoría
+            const mentoriaForm = document.getElementById('mentoriaForm');
+            if (mentoriaForm) {
+                mentoriaForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    showCustomMessage('¡Tu solicitud de mentoría ha sido enviada con éxito! Te contactaremos pronto para confirmar.');
+                    mentoriaForm.reset(); // Limpiar formulario
+                    closeModal('modalMentoria');
+                });
+            }
+
+            // Actualizar el badge de notificaciones (simulado)
+            const notificationBadge = document.getElementById('notificationBadge');
+            if (notificationBadge) {
+                notificationBadge.textContent = 5; // Número inicial de notificaciones
+            }
+        });
+
+        // Función para abrir el modal de detalles del proyecto
+        function openProjectModal(projectId) {
+            const project = miniproyectosData[projectId];
+            if (project) {
+                document.getElementById('modal-project-title').textContent = project.title;
+                document.getElementById('modal-project-company').textContent = project.company;
+                document.getElementById('modal-project-category').textContent = project.category;
+                document.getElementById('modal-project-payment').textContent = project.payment;
+                document.getElementById('modal-project-duration').textContent = project.duration;
+                document.getElementById('modal-project-level').textContent = project.level;
+                document.getElementById('modal-project-description').textContent = project.description;
+
+                const skillsList = document.getElementById('modal-project-skills');
+                skillsList.innerHTML = ''; // Limpiar lista anterior
+                project.skills.forEach(skill => {
+                    const li = document.createElement('li');
+                    li.textContent = skill;
+                    skillsList.appendChild(li);
+                });
+
+                const deliverablesList = document.getElementById('modal-project-deliverables');
+                deliverablesList.innerHTML = ''; // Limpiar lista anterior
+                project.deliverables.forEach(deliverable => {
+                    const li = document.createElement('li');
+                    li.textContent = deliverable;
+                    deliverablesList.appendChild(li);
+                });
+
+                document.getElementById('modal-project-mentor').textContent = project.mentor;
+                document.getElementById('modal-project-cupos').textContent = `${project.cupos} de ${project.totalCupos} disponibles`;
+                document.getElementById('modal-project-next-step').textContent = project.nextStep;
+
+                // Guardar el ID del proyecto actual en un atributo del modal para usarlo en la postulación
+                document.getElementById('projectDetailModal').dataset.currentProjectId = projectId;
+
+                openModal('projectDetailModal');
+            }
+        }
+
+        // Función para manejar la postulación al proyecto
+        function handleProjectPostulation() {
+            const currentProjectId = document.getElementById('projectDetailModal').dataset.currentProjectId;
+            if (currentProjectId && postulationCounts[currentProjectId] > 0) {
+                postulationCounts[currentProjectId]--; // Simular decremento de cupos
+                document.getElementById(`cupos-${currentProjectId}`).textContent = postulationCounts[currentProjectId];
+                showCustomMessage('¡Felicidades, Marco! Tu postulación ha sido enviada con éxito. Te notificaremos si pasas a la siguiente fase.');
+                closeModal('projectDetailModal');
+            } else if (postulationCounts[currentProjectId] === 0) {
+                showCustomMessage('Lo sentimos, Marco. Los cupos para este miniproyecto se han agotado.');
+            } else {
+                showCustomMessage('Hubo un error al procesar tu postulación. Inténtalo de nuevo.');
+            }
+        }
+
+    </script>
+</body>
+</html>
