@@ -1158,8 +1158,8 @@
                         🔔 <span class="badge" id="notificationBadge">5</span>
                     </button>
                     <div class="profile-section-header" onclick="toggleProfileDropdown()">
-                        <img src="testimonial-carlos.png" alt="Marco Castellano">
-                        <span>Marco Castellano</span>
+                        <img src="testimonial-carlos.png" alt="Usuario">
+                        <span>Usuario</span>
                         <div class="profile-dropdown" id="profileDropdown">
                             <a href="#perfil" onclick="showSection('perfil'); closeProfileDropdown();">Ver Perfil</a>
                             <a href="#" onclick="showCustomMessage('Has cerrado sesión. ¡Vuelve pronto para más oportunidades!'); closeProfileDropdown(); return false;">Cerrar Sesión</a>
@@ -1196,14 +1196,14 @@
                 <div class="profile-main-content">
                     <div class="profile-content">
                         <div class="profile-header">
-                            <img src="testimonial-carlos.png" alt="Marco Castellano">
-                            <h2>Marco Castellano</h2>
+                            <img src="testimonial-carlos.png" alt="Usuario">
+                            <h2>Usuario</h2>
                             <p>Joven Profesional en Desarrollo</p>
                         </div>
 
                         <div class="profile-section">
                             <h4>Información Personal</h4>
-                            <p class="profile-info-item"><strong>Correo Electrónico:</strong> marco.castellano@example.com</p>
+                            <p class="profile-info-item"><strong>Correo Electrónico:</strong> Usuario@example.com</p>
                             <p class="profile-info-item"><strong>Teléfono:</strong> +51 987 654 321</p>
                             <p class="profile-info-item"><strong>Áreas de Interés:</strong> Marketing Digital, Diseño Gráfico, Contenido</p>
                             <p class="profile-info-item"><strong>Nivel de Experiencia:</strong> Inicial</p>
@@ -1881,10 +1881,10 @@
             if (currentProjectId && postulationCounts[currentProjectId] > 0) {
                 postulationCounts[currentProjectId]--; // Simular decremento de cupos
                 document.getElementById(`cupos-${currentProjectId}`).textContent = postulationCounts[currentProjectId];
-                showCustomMessage('¡Felicidades, Marco! Tu postulación ha sido enviada con éxito. Te notificaremos si pasas a la siguiente fase.');
+                showCustomMessage('¡Felicidades, Usuario! Tu postulación ha sido enviada con éxito. Te notificaremos si pasas a la siguiente fase.');
                 closeModal('projectDetailModal');
             } else if (postulationCounts[currentProjectId] === 0) {
-                showCustomMessage('Lo sentimos, Marco. Los cupos para este miniproyecto se han agotado.');
+                showCustomMessage('Lo sentimos, Usuario. Los cupos para este miniproyecto se han agotado.');
             } else {
                 showCustomMessage('Hubo un error al procesar tu postulación. Inténtalo de nuevo.');
             }
